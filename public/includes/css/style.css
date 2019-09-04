@@ -1,0 +1,190 @@
+{
+    font-family: 'Calibri Light', 'KaiTi', '楷体', 'STKaiti', '华文楷体', serif !important;
+}
+
+body {
+    font-family: 'Calibri Light', 'KaiTi', '楷体', 'STKaiti', '华文楷体', serif !important;
+    background-image: url('../../asset/img/bg-img.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    overflow: hidden;
+}
+
+.jumbotron {
+    background-image: url('../../asset/img/bg-texture.png');
+    background-repeat: repeat;
+    border: 8px solid #745A24;
+    border-radius: 0;
+    outline: 3px solid #745A24;
+    outline-offset: -15px;
+}
+
+.apple-click-support {
+    cursor: pointer;
+}
+
+.progress-label {
+    margin: 0;
+    float: left;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bg-light {
+    background-color: #F6D18D !important;
+}
+
+#Question {
+    display: none;
+    /* opacity: 0; */
+}
+
+.btn-light {
+    background-image: url('../../asset/img/bg-texture.png');
+    background-repeat: repeat;
+    /* border: 6px solid #745A24; */
+    border-radius: 0;
+    outline: 2px solid #745A24;
+    outline-offset: -6px;
+    background-color: white;
+}
+
+.btn-light:hover,
+.btn-light:focus {
+    border-radius: 0;
+    outline: 2px solid #745A24;
+    outline-offset: -6px;
+    background-color: white;
+}
+
+.btn-dark {
+    background-image: url('../../asset/img/bg-texture-dark.png');
+    background-repeat: repeat;
+    border-radius: 0;
+    outline: 2px solid #F6D18D;
+    outline-offset: -6px;
+    background-color: #2D2518;
+}
+
+.btn-dark:hover,
+.btn-dark:focus {
+    border-radius: 0;
+    outline: 2px solid #F6D18D;
+    outline-offset: -6px;
+    background-color: #2D2518;
+}
+
+.btn-label {
+    /* display: none; */
+    opacity: 0;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    height: 30vh;
+    width: 36px;
+    font-size: 150%;
+    margin: auto;
+}
+
+.jumbotron {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+}
+
+#ReadyText,
+#StartText {
+    display: none;
+    opacity: 0;
+    font-size: 8rem;
+}
+
+.modal-content {
+    background-image: url('../../asset/img/bg-texture.png');
+    background-repeat: repeat;
+    /*border: 8px solid #745A24;*/
+    border-radius: 0;
+    outline: 3px solid #745A24;
+    outline-offset: -10px;
+}
+
+.card {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+
+    transition: all 0.6s ease;
+    transform-style: preserve-3d;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card .front,
+.card .back {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.card .back {
+    transform: rotateY(180deg);
+}
+
+.slide-up {
+    animation: slide-up 0.6s ease;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.blink {
+    animation: blink normal 1.5s infinite ease;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.floating {
+    animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

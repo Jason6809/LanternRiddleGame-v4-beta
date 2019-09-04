@@ -1,0 +1,60 @@
+<div class="container d-flex flex-column justify-content-around slide-up">
+    <div class="container-fluid px-0 my-2 d-flex flex-column justify-content-center">
+        <p class="progress-label h5 text-light d-flex flex-row"> 共答对&nbsp;<span id="Level"></span>&nbsp;/&nbsp;9&nbsp;题</p>
+        <div class="progress" style="height: 30px;">
+            <div id="ProgressBar" class="progress-bar bg-light text-dark" role="progressbar" style="width: 0%;"></div>
+        </div>
+    </div>
+    <div class="jumbotron shadow slide-up floating">
+        <div class="container">
+            <p class="text-center h4 d-flex flex-column justify-content-center" style="height: 16vh;">
+                <span id="ReadyText">
+                    预备
+                </span>
+                <span id="StartText">
+                    开始
+                </span>
+                <span id="Question">
+                    <!-- Riddle Question... -->
+                    题目
+                </span>
+            </p>
+            <hr class="bg-light">
+            <p class="h3 text-right text-danger">
+                <span id="Timer"></span> 秒
+            </p>
+        </div>
+    </div>
+    <div class="container-fluid p-0 d-flex flex-row justify-content-between slide-up floating" id="OptionButtons">
+        <!-- Riddle Option Buttons -->
+        <button class="btn btn-light px-0 px-sm-1 px-md-4 shadow option-btn" type="button" onclick="tapSFX.play(); checkAnswer(this.value);" disabled>
+            甲
+            <p class="btn-label"></p>
+        </button>
+        <button class="btn btn-dark px-0 px-sm-1 px-md-4 shadow option-btn" type="button" onclick="tapSFX.play(); checkAnswer(this.value);" disabled>
+            乙
+            <p class="btn-label"></p>
+        </button>
+        <button class="btn btn-light px-0 px-sm-1 px-md-4 shadow option-btn" type="button" onclick="tapSFX.play(); checkAnswer(this.value);" disabled>
+            丙
+            <p class="btn-label"></p>
+        </button>
+        <button class="btn btn-dark px-0 px-sm-1 px-md-4 shadow option-btn" type="button" onclick="tapSFX.play(); checkAnswer(this.value);" disabled>
+            丁
+            <p class="btn-label"></p>
+        </button>
+        <button class="btn btn-light px-0 px-sm-1 px-md-4 shadow option-btn" type="button" onclick="tapSFX.play(); checkAnswer(this.value);" disabled>
+            戊
+            <p class="btn-label"></p>
+        </button>
+        <button class="btn btn-dark px-0 px-sm-1 px-md-4 shadow option-btn" type="button" onclick="tapSFX.play(); checkAnswer(this.value);" disabled>
+            己
+            <p class="btn-label"></p>
+        </button>
+    </div>
+    <div class="container-fluid my-2 p-0">
+        <button id="ExitButton" class="btn btn-sm btn-sm-dark btn-danger" type="button" onclick=" tapSFX.play(); askGiveUp();" disabled>
+            退出
+        </button>
+    </div>
+</div>

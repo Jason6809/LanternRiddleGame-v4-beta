@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control: max-age=31557600" content="public">
+    <title>Lantern Riddle Game</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="asset/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="asset/icons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" href="asset/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" href="asset/icons/android-192x192.png" sizes="192x192">
+    <!-- PWA Mainfest -->
+    <link rel='manifest' href='manifest.json'>
+    <!-- CODELAB: Add iOS meta tags and icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Lantern Riddle Game">
+    <link rel="apple-touch-icon" href="asset/icons/apple-touch-icon-180x180.png" sizes="180x180">
+    <!-- CODELAB: Add description here -->
+    <meta name="description" content="A lantern riddle game">
+    <!-- CODELAB: Add meta theme-color -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="includes/css/style.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#config-web-app -->
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBwkVDm6VIwe5ipTGZDzyBDA6tXj3F1Gkg",
+            authDomain: "lantern-riddle-game.firebaseapp.com",
+            databaseURL: "https://lantern-riddle-game.firebaseio.com",
+            projectId: "lantern-riddle-game",
+            storageBucket: "lantern-riddle-game.appspot.com",
+            messagingSenderId: "467152027146",
+            appId: "1:467152027146:web:f537cb6e20f34123"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body onload="init();">
+    <!-- Main -->
+    <div class="container d-flex apple-click-support" id="App" style="height: -webkit-fill-available">
+        <!-- Views -->
+        <div class="container-fluid d-flex flex-column justify-content-center slide-up" id="Loader">
+            <div class="container-fluid d-flex flex-row justify-content-center">
+                <div class="spinner-border text-light my-3" role="status">
+                    <span class="sr-only">加载中......</span>
+                </div>
+            </div>
+            <div class="container-fluid d-flex flex-row justify-content-center">
+                <p class="h4 text-light">加载中......</p>
+            </div>
+        </div>        
+    </div>
+    <!-- Modal -->
+    <div id="Modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title invisible"> 恭喜你 ！</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="h2 text-center"> 答对了 ！</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" onclick="tapSFX.play(); showRiddle();" data-dismiss="modal">
+                        下一题
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Permission" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title invisible">权限申请</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="h6 text-center">请允许打开音量，以获得最佳体验。</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button id="AllowAudioButton" type="button" class="btn btn-dark" onclick="tapSFX.play();" data-dismiss="modal">
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Continue" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title invisible">请确认</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="h6 text-center">确认继续？</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button id="AllowAudioButton" type="button" class="btn btn-dark" onclick="tapSFX.play();" data-dismiss="modal">
+                        取消
+                    </button>
+                    <button id="AllowAudioButton" type="button" class="btn btn-dark" onclick="tapSFX.play(); continueProgress();" data-dismiss="modal">
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="GiveUp" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title invisible">请确认</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="h6 text-center">确认放弃？</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button id="AllowAudioButton" type="button" class="btn btn-dark" onclick="tapSFX.play();" data-dismiss="modal">
+                        取消
+                    </button>
+                    <button id="AllowAudioButton" type="button" class="btn btn-dark" onclick="tapSFX.play(); giveUpProgress();" data-dismiss="modal">
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Prize" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title invisible"> 恭喜你 ！</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="h2 text-center">恭喜你 ！获得 <span id="PrizeLabel"></span> ！</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark" onclick="tapSFX.play(); init();" data-dismiss="modal">
+                        返回主页
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor Script -->
+    <script src="vendor/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="vendor/howler.js-master/dist/howler.js"></script>
+    <!-- Script -->
+    <script src="includes/js/audio.js"></script>
+    <script src="includes/js/view.js"></script>
+    <script src="includes/js/init.js"></script>
+    <script src="includes/js/main.js"></script>
+    <!-- PWA -->
+    <script src="pwabuilder-sw-register.js"></script>
+    <script src="pwabuilder-sw.js"></script>
+</body>
+
+</html>

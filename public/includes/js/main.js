@@ -254,7 +254,7 @@ function countdownTimer(element) {
             }
             showFailure();
         }
-    }, 900);
+    }, 850);
 }
 
 function stopTimer() {
@@ -427,30 +427,52 @@ function showLuckydraw() {
 
     $('#App').html(luckydrawScene);
 
-    console.log(TAG);
+    var prizeList = [
+        'RM 5', 'RM 5', 'RM 10',
+        'RM 10', 'RM 10', 'RM 10',
+        'RM 10', 'RM 50', 'RM 50'
+    ];
+    var prizeLabels = document.querySelectorAll('.prize-label');
+
+    prizeLabels.forEach((prizeLabel) => {
+        var index = Math.floor(Math.random() * prizeList.length);
+        var prize = prizeList[index];
+        prizeLabel.innerHTML = prize;
+
+        console.log(TAG + prizeLabel.innerHTML);
+
+        prizeList.splice(index, 1);
+        console.log(TAG + 'after splice, ');
+        console.log(prizeList);
+    });
 }
 
 function luckydraw(element) {
     const TAG = 'luckydraw: ';
 
-    $(element).toggleClass('flipped');
-
-    var prizeList = [
-        'RM 10', 'RM 10', 'RM 10',
-        'RM 10', 'RM 10', 'RM 10',
-        'RM 10', 'RM 50', 'RM 100'
-    ];
-
-    var index = Math.floor(Math.random() * prizeList.length);
-    var prize = prizeList[index];
-    console.log(TAG + prize);
-
-    $(element).find('.prize-label').html(prize);
-    $('#PrizeLabel').html(prize);
+    $('.card').off('click');
 
     correctSFX.play();
 
-    $('#Prize').modal({
-        backdrop: "static"
-    });
+    $(element).addClass('flipped');
+    $('.card').prop('onclick', null);
+
+    var prize = $(element).find('.prize-label').html();
+    $('#PrizeLabel').html(prize);
+
+    setTimeout(() => {
+        $('#Prize').modal({
+            backdrop: "static"
+        });
+    }, 2000);
+}
+
+function showAll() {
+    const TAG = 'showAll: ';
+
+    $('.card').addClass('flipped');
+
+    $('#ExitButton').prop('disabled', false);
+
+    console.log(TAG);
 }

@@ -10,7 +10,7 @@ async function startGame() {
 
     var count = 0;
     while (count < 9) {
-        await addRiddleToAnswered();
+        await addRiddleToPrepared();
         count++;
     }
 
@@ -60,7 +60,7 @@ function showPreparation() {
 
     //init
     $('#Question').html('');
-    $('#Timer').html('12');
+    $('#Timer').html('9');
     $('.btn-label').html('');
     $('.option-btn').val('');
     $('.option-btn').prop('disabled', true);
@@ -233,7 +233,7 @@ function countdownTimer(element) {
     countdownSFX.play();
 
     var el = element;
-    var counter = 12;
+    var counter = 9;
 
     timer = setInterval(() => {
         console.log(TAG + 'counter = ' + counter);
@@ -249,12 +249,14 @@ function countdownTimer(element) {
         if (counter <= 0) {
             stopTimer();
 
+            addRiddleToAnswered(preparedRiddles[0]);
+
             if (preparedRiddles.length > 0) {
                 reloadRiddle();
             }
             showFailure();
         }
-    }, 850);
+    }, 800);
 }
 
 function stopTimer() {
@@ -273,7 +275,7 @@ function checkAnswer(value) {
 
     stopTimer();
 
-    addQuestionToAnswered(preparedRiddles[0]);
+    addRiddleToAnswered(preparedRiddles[0]);
 
     if (preparedRiddles.length > 0) {
         reloadRiddle();
@@ -311,14 +313,14 @@ async function reloadRiddle() {
     const TAG = 'reloadRiddle: ';
 
     removeRiddleFromPrepared();
-    var result = await addRiddleToAnswered();
+    var result = await addRiddleToPrepared();
 
     console.log(TAG);
     console.log(result);
 }
 
-function addQuestionToAnswered(riddle) {
-    const TAG = 'addQuestionToAnswered: ';
+function addRiddleToAnswered(riddle) {
+    const TAG = 'addRiddleToAnswered: ';
 
     answeredRiddles.push(riddle);
 
@@ -335,8 +337,8 @@ function removeRiddleFromPrepared() {
     console.log(preparedRiddles);
 }
 
-function addRiddleToAnswered() {
-    const TAG = 'addRiddleToAnswered: ';
+function addRiddleToPrepared() {
+    const TAG = 'addRiddleToPrepared: ';
 
     return new Promise((resolve, reject) => {
 
@@ -428,9 +430,9 @@ function showLuckydraw() {
     $('#App').html(luckydrawScene);
 
     var prizeList = [
-        'RM 5', 'RM 5', 'RM 10',
-        'RM 10', 'RM 10', 'RM 10',
-        'RM 10', 'RM 50', 'RM 50'
+        'RM 5', 'RM 5', 'RM 5',
+        'RM 5', 'RM 10', 'RM 10',
+        'RM 10', 'RM 10', 'RM 50'
     ];
     var prizeLabels = document.querySelectorAll('.prize-label');
 
